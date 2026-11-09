@@ -10,9 +10,9 @@ from scraper_fiscalia import extraer_fiscalia
 from scraper_empleospublicos import extraer_empleos_publicos
 from scraper_getonboard import extraer_getonboard
 
-# 2. Configuración de Telegram
-TELEGRAM_TOKEN =os.getenv("9004414867:AAEEa_L1RJfX3cJ6FeZ4XCS9_MTgEuH_xXU")   # Reemplaza con tu token real de BotFather
-CHAT_ID = os.getenv("9221580402")
+# Leer directamente de las variables de entorno sin dejar textos planos
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 # Archivo de persistencia histórica
 HISTORY_FILE = "historial_empleos.json"
