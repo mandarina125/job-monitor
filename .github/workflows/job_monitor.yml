@@ -38,5 +38,11 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add historial_empleos.json
-          git commit -m "chore: update job history [skip ci]" || echo "No changes to commit"
-          git push
+          # Solo hace commit y push si historial_empleos.json tuvo modificaciones reales
+          if git diff --staged --quiet; then
+            echo "No hay ofertas nuevas que actualizar en el historial."
+          else
+            git commit -m "chore: update job history [skip ci]"
+            git pull --rebase origin main
+            git push origin main
+          fi
