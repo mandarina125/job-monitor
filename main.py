@@ -36,13 +36,20 @@ def guardar_historial(historial):
 
 def enviar_alerta_telegram(mensaje):
     """Envía el reporte consolidado a Telegram usando formato HTML."""
+    # Validar que los tokens existan primero
+    if not TELEGRAM_TOKEN or not CHAT_ID:
+        print("Error: TELEGRAM_TOKEN o CHAT_ID no están configurados en el entorno.")
+        return False
+        
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN.strip()}/sendMessage"
+    
     payload = {
-        "chat_id": CHAT_ID,
+        "chat_id": CHAT_ID.strip(),
         "text": mensaje,
         "parse_mode": "HTML",
         "disable_web_page_preview": True
     }
+    
     try:
         res = requests.post(url, json=payload, timeout=12)
         if res.status_code == 200:
