@@ -1,20 +1,22 @@
 import os
+from dotenv import load_dotenv
 import json
 import html
 import requests
 
-# 1. Importación modular de los 4 extractores
+# Cargar variables locales desde el archivo .env
+load_dotenv()
+
+# 1. Importación modular de los extractores
 from scraper_chiletrabajos import extraer_ofertas as extraer_chiletrabajos
 from scraper_computrabajo import extraer_computrabajo
 from scraper_fiscalia import extraer_fiscalia
 from scraper_empleospublicos import extraer_empleos_publicos
 from scraper_getonboard import extraer_getonboard
 
-
-
-# Leer directamente de las variables de entorno sin dejar textos planos
-TELEGRAM_TOKEN = os.getenv("9004414867:AAEEa_L1RJfX3cJ6FeZ4XCS9_MTgEuH_xXU")
-CHAT_ID = os.getenv("9221580402")
+# Leer variables usando el NOMBRE de la variable de entorno
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 # Archivo de persistencia histórica
 HISTORY_FILE = "historial_empleos.json"
