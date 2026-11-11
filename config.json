@@ -1,0 +1,15 @@
+{
+  "filtros": {
+    "palabras_busqueda": ["soporte", "informatica", "datos"],
+    "palabras_titulo": [
+      "ingeniería", "ingenieria", "informática", "informatica",
+      "técnico", "tecnico", "soporte", "analista", "tier",
+      "base de datos", "datos", "soporte remoto", "analista de datos",
+       "analista de datos junior", "junior", "soporte junior"
+    ]
+  },
+  "ubicaciones": {
+    "region_chiletrabajos": "10",
+    "slug_computrabajo": "los-lagos"
+  }
+}

@@ -22,20 +22,22 @@ headers = {
     "Accept-Language": "es-419,es;q=0.9"
 }
 
-def extraer_computrabajo():
-    print("Iniciando revisión en CompuTrabajo (Los Lagos)...")
+def extraer_computrabajo(palabras_busqueda=None, palabras_filtro=None, slug_region="los-lagos"):
+    print("Iniciando revisión en CompuTrabajo...")
     ofertas_encontradas = []
 
-    for palabra in PALABRAS_BUSQUEDA:
-        url = f"{URL_BUSQUEDA}{palabra}"
+    palabras = palabras_busqueda or ["soporte", "informatica", "datos"]
+    filtros = palabras_filtro or ["soporte", "informatica", "tecnico", "analista"]
+    url_base_busqueda = f"{BASE_URL_COMPUTRABAJO}/empleos-en-{slug_region}?q="
+
+    for palabra in palabras:
+        url = f"{url_base_busqueda}{palabra}"
         try:
             res = requests.get(url, headers=headers, timeout=10)
             if res.status_code != 200:
-                print(f"CompuTrabajo respondió con código {res.status_code} para '{palabra}'")
                 continue
 
             soup = BeautifulSoup(res.text, "html.parser")
-            # En CompuTrabajo los contenedores de ofertas son etiquetas <article> con clase 'box_offer'
             articulos = soup.find_all("article", class_="box_offer")
 
             for art in articulos:
@@ -46,12 +48,11 @@ def extraer_computrabajo():
                 titulo = tag_a.get_text(strip=True)
                 enlace = urljoin(BASE_URL_COMPUTRABAJO, tag_a.get("href", ""))
 
-                # Extraer empresa y ciudad si están disponibles
                 empresa_tag = art.find("p", class_="fs16")
                 empresa = empresa_tag.get_text(strip=True) if empresa_tag else "Confidencial"
 
                 titulo_lower = titulo.lower()
-                if any(k in titulo_lower for k in FILTRO_TITULOS):
+                if any(k in titulo_lower for k in filtros):
                     if not any(o["url"] == enlace for o in ofertas_encontradas):
                         ofertas_encontradas.append({
                             "titulo": titulo,
@@ -63,10 +64,3 @@ def extraer_computrabajo():
             print(f"Error consultando '{palabra}' en CompuTrabajo: {e}")
 
     return ofertas_encontradas
-
-if __name__ == "__main__":
-    ofertas = extraer_computrabajo()
-    print(f"\n--- Ofertas encontradas en CompuTrabajo ({len(ofertas)}) ---")
-    for o in ofertas:
-        print(f"📌 {o['titulo']} ({o['empresa']})")
-        print(f"🔗 {o['url']}\n")

@@ -13,12 +13,16 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 }
 
-def extraer_ofertas():
-    print("Iniciando revisión en ChileTrabajos (Los Lagos)...")
+def extraer_ofertas(palabras_busqueda=None, palabras_filtro=None, region="10"):
+    print("Iniciando revisión en ChileTrabajos...")
     ofertas_encontradas = []
 
-    for palabra in PALABRAS_BUSQUEDA:
-        url = f"{BASE_URL}/encuentra-un-empleo?carrera=&region=10&palabras-claves={palabra}"
+    # Valores por defecto si no se pasan parámetros
+    palabras = palabras_busqueda or ["soporte", "informatica", "datos"]
+    filtros = palabras_filtro or ["soporte", "informatica", "tecnico", "analista"]
+
+    for palabra in palabras:
+        url = f"{BASE_URL}/encuentra-un-empleo?carrera=&region={region}&palabras-claves={palabra}"
         try:
             res = requests.get(url, headers=headers, timeout=10)
             if res.status_code != 200:
@@ -38,7 +42,7 @@ def extraer_ofertas():
                 enlace = urljoin(BASE_URL, link_elem.get("href", ""))
 
                 titulo_lower = titulo.lower()
-                if any(k in titulo_lower for k in FILTRO_TITULOS):
+                if any(k in titulo_lower for k in filtros):
                     if not any(o["url"] == enlace for o in ofertas_encontradas):
                         ofertas_encontradas.append({
                             "titulo": titulo,
@@ -49,8 +53,3 @@ def extraer_ofertas():
             print(f"Error consultando '{palabra}' en ChileTrabajos: {e}")
 
     return ofertas_encontradas
-
-if __name__ == "__main__":
-    # Prueba individual si ejecutas solo este archivo
-    resultados = extraer_ofertas()
-    print(f"Total encontradas en ChileTrabajos: {len(resultados)}")
