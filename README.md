@@ -55,7 +55,7 @@ Gestión de Secretos: GitHub Secrets (protección de tokens y credenciales)
 
 🌐 Fuentes IntegradasFuenteMétodo de ExtracciónTipo de OfertasChileTrabajosWeb Scraping (BeautifulSoup)TI & Soporte (Región de Los Lagos)CompuTrabajoWeb Scraping (BeautifulSoup)TI & Soporte (Región de Los Lagos)Fiscalía de ChileAPI Interna AJAX (POST JSON)Vacantes públicas sector judicial (Los Lagos)Empleos PúblicosAPI Interna (GET / .ashx)Convocatorias del Estado (Región de Los Lagos)Get on BoardAPI REST Pública Oficial (GET JSON)Datos, BI, Sysadmin & Ciberseguridad (100% Remoto)
 
-📁 Estructura del Proyecto
+📁 Estructura delgit status Proyecto
 proyecto/
 ├── .github/
 │   └── workflows/
@@ -91,3 +91,5 @@ python main.py
 
 🔒 Permisos del Flujo CI/CD
 El workflow requiere permisos de escritura en el repositorio (Workflow permissions > Read and write permissions) para poder registrar y comitear de vuelta las actualizaciones en historial_empleos.json, asegurando que la memoria del bot persista entre ejecuciones.
+
+
