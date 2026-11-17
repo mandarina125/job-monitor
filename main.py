@@ -146,10 +146,12 @@ def ejecutar_rastreo_diario():
     if nuevas:
         mensaje = "💼 <b>Nuevas vacantes de TI detectadas</b> 🔔\n\n"
         for o in nuevas:
+            # Blindamos absolutamente todos los campos contra cualquier etiqueta mal formada
             titulo_limpio = html.escape(o.get('titulo', 'Sin título'))
             origen_limpio = html.escape(o.get('origen', 'Web'))
             url_limpia = html.escape(o.get('url', '#'), quote=True)
-        
+            
+            # Usamos estructura limpia sin mezclar etiquetas crudas
             mensaje += f"• [{origen_limpio}] <b>{titulo_limpio}</b>\n"
             mensaje += f"🔗 <a href='{url_limpia}'>Ver oferta</a>\n\n"
             historial.add(o["url"])
