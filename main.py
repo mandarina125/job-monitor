@@ -147,9 +147,11 @@ def ejecutar_rastreo_diario():
         mensaje = "💼 <b>Nuevas vacantes de TI detectadas</b> 🔔\n\n"
         for o in nuevas:
             titulo_limpio = html.escape(o.get('titulo', 'Sin título'))
-            origen = o.get('origen', 'Web')
-            mensaje += f"• [{origen}] <b>{titulo_limpio}</b>\n"
-            mensaje += f"🔗 <a href='{o['url']}'>Ver oferta</a>\n\n"
+            origen_limpio = html.escape(o.get('origen', 'Web'))
+            url_limpia = html.escape(o.get('url', '#'), quote=True)
+        
+            mensaje += f"• [{origen_limpio}] <b>{titulo_limpio}</b>\n"
+            mensaje += f"🔗 <a href='{url_limpia}'>Ver oferta</a>\n\n"
             historial.add(o["url"])
 
         # Control del límite de 4096 caracteres por mensaje en Telegram
