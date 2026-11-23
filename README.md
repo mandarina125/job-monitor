@@ -39,7 +39,7 @@ Sistema automatizado de vigilancia y alerta temprana para ofertas laborales en t
                         │  historial_empleos.json   │ ──► [ Deduplicación ]
                         └─────────────┬─────────────┘
                                       ▼
-                          [ Telegram Bot API ] ──► 📲 Notificación en Celular
+                          [ Telegram Bot API ] ──► 📲 Notificación en Celular```
 
 
 🛠️ Tecnologías y Librerías
